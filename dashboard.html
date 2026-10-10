@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ダッシュボード - 音楽ゲームの集い</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: '#00f3ff',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- ヘッダー -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <i data-lucide="music" class="w-7 h-7 text-cyan-400"></i>
+      <h1 class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">音楽ゲームの集い - ダッシュボード</h1>
+    </div>
+
+    <!-- ログイン後ユーザーアイコン＆メニュー -->
+    <div class="relative">
+      <button onclick="toggleUserMenu()" class="flex items-center space-x-3 focus:outline-none group">
+        <img id="user-avatar" class="w-10 h-10 rounded-full border-2 border-cyan-400 group-hover:scale-105 transition object-cover" src="" alt="User Avatar" />
+      </button>
+
+      <!-- ドロップダウンメニュー -->
+      <div id="user-menu" class="hidden absolute right-0 mt-2 w-52 bg-slate-800 border border-slate-700 rounded-xl shadow-xl py-2 z-50">
+        <div class="px-4 py-2 border-b border-slate-700">
+          <p id="user-name" class="font-semibold text-sm text-slate-200 truncate"></p>
+        </div>
+        <button onclick="toggleTheme()" class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-700 flex items-center space-x-2 transition">
+          <i data-lucide="sun-moon" class="w-4 h-4 text-cyan-400"></i>
+          <span id="theme-text">ライトモードに変更</span>
+        </button>
+        <button onclick="logout()" class="w-full text-left px-4 py-2.5 text-sm hover:bg-slate-700 text-red-400 flex items-center space-x-2 border-t border-slate-700 transition">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+          <span>サインアウト</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-10 space-y-8">
+    
+    <div>
+      <h2 class="text-2xl font-bold mb-2">ゲーム選択</h2>
+      <p class="text-slate-400 text-sm">点数を送信したいゲームを選択してください。</p>
+    </div>
+
+    <!-- ゲーム選択カード -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- 太鼓の達人（選択可能） -->
+      <button onclick="selectGame('taiko')" id="game-taiko" class="bg-slate-800 border-2 border-cyan-500 hover:bg-slate-700/80 p-5 rounded-2xl text-left transition flex items-center justify-between shadow-lg shadow-cyan-500/10">
+        <div>
+          <h3 class="text-lg font-bold text-cyan-400">太鼓の達人点数送信</h3>
+          <p class="text-xs text-slate-400 mt-1">選択可能</p>
+        </div>
+        <i data-lucide="check-circle" class="w-6 h-6 text-cyan-400"></i>
+      </button>
+
+      <!-- CHUNITHM（不可） -->
+      <div class="bg-slate-800/40 border border-slate-800 p-5 rounded-2xl opacity-50 cursor-not-allowed flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-400">CHUNITHM点数送信</h3>
+          <p class="text-xs text-slate-500 mt-1">現在選択できません</p>
+        </div>
+        <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+      </div>
+
+      <!-- オンゲキ（不可） -->
+      <div class="bg-slate-800/40 border border-slate-800 p-5 rounded-2xl opacity-50 cursor-not-allowed flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-400">オンゲキ点数送信</h3>
+          <p class="text-xs text-slate-500 mt-1">現在選択できません</p>
+        </div>
+        <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+      </div>
+
+      <!-- maimai（不可） -->
+      <div class="bg-slate-800/40 border border-slate-800 p-5 rounded-2xl opacity-50 cursor-not-allowed flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-400">maimai点数送信</h3>
+          <p class="text-xs text-slate-500 mt-1">現在選択できません</p>
+        </div>
+        <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+      </div>
+    </div>
+
+    <!-- 画像送信フォームエリア -->
+    <div id="upload-section" class="bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4 shadow-xl">
+      <h3 class="text-xl font-bold flex items-center space-x-2">
+        <i data-lucide="upload" class="w-5 h-5 text-cyan-400"></i>
+        <span>スコア写真の送信</span>
+      </h3>
+      <p class="text-sm text-slate-400">送信したいスコアの画像ファイルを選択してください。</p>
+      <input type="file" id="photo-input" accept="image/*" class="block w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20 file:cursor-pointer cursor-pointer bg-slate-900 rounded-xl p-2 border border-slate-700" />
+      <button onclick="showWarningModal()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20">
+        <i data-lucide="send" class="w-5 h-5"></i>
+        <span>写真を送信する</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- 注意書きモーダルポップアップ -->
+  <div id="warning-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-in fade-in zoom-in duration-150">
+      <div class="flex items-center space-x-3 text-amber-400">
+        <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+        <h3 class="text-xl font-bold">---注意---</h3>
+      </div>
+      <div class="space-y-2 text-slate-300 text-sm leading-relaxed">
+        <p>写真は運営に送信されます。</p>
+        <p>個人情報を含む情報は送信しないでください。</p>
+        <p class="text-amber-300 font-semibold">GiGOなら特に気を付けてください。</p>
+      </div>
+      <div class="pt-4 flex space-x-3">
+        <button onclick="closeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 py-2.5 rounded-xl font-medium transition">キャンセル</button>
+        <button onclick="confirmAndSend()" class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-xl transition">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ※ Discordのウェブスコア写真チャンネル用に作成したWebhook URLをここに入れてな！
+    const DISCORD_WEBHOOK_URL = 'ここにWEBHOOK_URLを入れる';
+    const REDIRECT_URI = 'https://musicgamegathering.pages.dev/';
+
+    let userData = null;
+
+    window.onload = () => {
+      lucide.createIcons();
+      checkAuth();
+    };
+
+    function checkAuth() {
+      const token = localStorage.getItem('discord_token');
+      if (!token) {
+        window.location.href = REDIRECT_URI;
+        return;
+      }
+
+      fetch('https://discord.com/api/users/@me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.id) {
+          userData = data;
+          const avatarUrl = userData.avatar
+            ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
+            : 'https://cdn.discordapp.com/embed/avatars/0.png';
+          document.getElementById('user-avatar').src = avatarUrl;
+          document.getElementById('user-name').innerText = userData.global_name || userData.username;
+        } else {
+          logout();
+        }
+      })
+      .catch(() => logout());
+    }
+
+    function toggleUserMenu() {
+      document.getElementById('user-menu').classList.toggle('hidden');
+    }
+
+    function logout() {
+      localStorage.removeItem('discord_token');
+      window.location.href = REDIRECT_URI;
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeText = document.getElementById('theme-text');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        themeText.innerText = 'ダークモードに変更';
+      } else {
+        html.classList.add('dark');
+        themeText.innerText = 'ライトモードに変更';
+      }
+    }
+
+    function selectGame(game) {
+      // 現状は太鼓のみ選択可能なので通知などはお好みで
+    }
+
+    function showWarningModal() {
+      const fileInput = document.getElementById('photo-input');
+      if (!fileInput.files[0]) {
+        alert('写真を選択してください！');
+        return;
+      }
+      document.getElementById('warning-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('warning-modal').classList.add('hidden');
+    }
+
+    function confirmAndSend() {
+      closeModal();
+      const fileInput = document.getElementById('photo-input');
+      const file = fileInput.files[0];
+      if (!file || !userData) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('payload_json', JSON.stringify({
+        content: `【太鼓の達人 スコア写真】\n送信者: **${userData.global_name || userData.username}** (<@${userData.id}>)`
+      }));
+
+      fetch(DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => {
+        if (res.ok) {
+          alert('スコア写真を送信しました！');
+          fileInput.value = '';
+        } else {
+          alert('送信に失敗しました。Webhook URLを確認してください。');
+        }
+      })
+      .catch(err => alert('送信エラーが発生しました。'));
+    }
+
+    // メニュー外クリックで閉じる
+    window.onclick = function(event) {
+      if (!event.target.closest('button')) {
+        const menu = document.getElementById('user-menu');
+        if (menu && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

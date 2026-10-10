@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ダッシュボード - 音楽ゲームの集い</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -133,8 +134,10 @@
   </div>
 
   <script>
-    // ※ Discordのウェブスコア写真チャンネル用に作成したWebhook URLをここに入れてな！
-    const DISCORD_WEBHOOK_URL = 'ここにWEBHOOK_URLを入れる';
+    // スコア送信用のWebhook URL
+    const DISCORD_WEBHOOK_URL = 'ここにスコア送信用のWEBHOOK_URLを入れる';
+    // エラーログ用のWebhook URL（管理鯖）
+    const ERROR_LOG_WEBHOOK_URL = 'https://discord.com/api/webhooks/1558468249509691495/s86DkbRlvP_ccqFOZazGvGV20rRiIRay7R7fRNWZOe0nmKxzfy9iBbPJgXgQnoGu1ZMK';
     const REDIRECT_URI = 'https://musicgamegathering.pages.dev/';
 
     let userData = null;
@@ -192,7 +195,7 @@
     }
 
     function selectGame(game) {
-      // 現状は太鼓のみ選択可能なので通知などはお好みで
+      // 選択処理
     }
 
     function showWarningModal() {
@@ -208,7 +211,24 @@
       document.getElementById('warning-modal').classList.add('hidden');
     }
 
-   function confirmAndSend() {
+    async function sendErrorLog(errorDetail) {
+      const userName = userData ? (userData.global_name || userData.username) : '不明なユーザー';
+      const userId = userData ? userData.id : '不明';
+
+      try {
+        await fetch(ERROR_LOG_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: `【スコア送信エラー】\n送信者: **${userName}** (<@${userId}>)\nエラー理由：Webhookに問題が発生\n詳しいエラー：${errorDetail}`
+          })
+        });
+      } catch (e) {
+        console.error('エラーログの送信に失敗しました', e);
+      }
+    }
+
+    function confirmAndSend() {
       closeModal();
       const fileInput = document.getElementById('photo-input');
       const file = fileInput.files[0];
@@ -229,7 +249,6 @@
           alert('スコア写真を送信しました！');
           fileInput.value = '';
         } else {
-          // エラー内容を取得して詳細を表示
           let errorDetail = `ステータスコード: ${res.status} ${res.statusText}`;
           try {
             const errJson = await res.json();
@@ -240,11 +259,20 @@
               if (errText) errorDetail = errText;
             } catch (ex) {}
           }
+          
+          // エラーログを管理鯖に送信
+          sendErrorLog(errorDetail);
+
           alert(`写真を送信できませんでした。これはログに記録されていますが、管理者に伝える場合は以下のことを伝えてください。\nエラー理由：Webhookに問題が発生\n詳しいエラー：${errorDetail}`);
         }
       })
       .catch(err => {
-        alert(`写真を送信できませんでした。これはログに記録されていますが、管理者に伝える場合は以下のことを伝えてください。\nエラー理由：Webhookに問題が発生\n詳しいエラー：${err.message || err}`);
+        const errorDetail = err.message || err;
+        
+        // エラーログを管理鯖に送信
+        sendErrorLog(errorDetail);
+
+        alert(`写真を送信できませんでした。これはログに記録されていますが、管理者に伝える場合は以下のことを伝えてください。\nエラー理由：Webhookに問題が発生\n詳しいエラー：${errorDetail}`);
       });
     }
 

@@ -2,6 +2,7 @@
 
 Discordサーバー「音楽ゲームの集い」の公式Webサイトです。  
 Cloudflare Pages × Cloudflare Workers を活用し、Discord OAuth2認証を導入しています。
+Website：https://musicgamegathering.pages.dev
 
 ---
 

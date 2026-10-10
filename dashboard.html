@@ -208,7 +208,7 @@
       document.getElementById('warning-modal').classList.add('hidden');
     }
 
-    function confirmAndSend() {
+   function confirmAndSend() {
       closeModal();
       const fileInput = document.getElementById('photo-input');
       const file = fileInput.files[0];
@@ -224,15 +224,28 @@
         method: 'POST',
         body: formData
       })
-      .then(res => {
+      .then(async res => {
         if (res.ok) {
           alert('スコア写真を送信しました！');
           fileInput.value = '';
         } else {
-          alert('送信に失敗しました。Webhook URLを確認してください。');
+          // エラー内容を取得して詳細を表示
+          let errorDetail = `ステータスコード: ${res.status} ${res.statusText}`;
+          try {
+            const errJson = await res.json();
+            errorDetail = JSON.stringify(errJson);
+          } catch (e) {
+            try {
+              const errText = await res.text();
+              if (errText) errorDetail = errText;
+            } catch (ex) {}
+          }
+          alert(`写真を送信できませんでした。これはログに記録されていますが、管理者に伝える場合は以下のことを伝えてください。\nエラー理由：Webhookに問題が発生\n詳しいエラー：${errorDetail}`);
         }
       })
-      .catch(err => alert('送信エラーが発生しました。'));
+      .catch(err => {
+        alert(`写真を送信できませんでした。これはログに記録されていますが、管理者に伝える場合は以下のことを伝えてください。\nエラー理由：Webhookに問題が発生\n詳しいエラー：${err.message || err}`);
+      });
     }
 
     // メニュー外クリックで閉じる

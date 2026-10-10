@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音楽ゲームの集い チャンネル紹介</title>
+    <title>音楽ゲームの集い - ログイン</title>
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons (CDN) -->
@@ -20,257 +20,62 @@
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
         }
         .neon-border {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
-        }
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: #11121a;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
         }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex justify-center items-start custom-scroll">
+<body class="p-4 min-h-screen flex justify-center items-center">
 
-    <div class="w-full max-w-4xl bg-[#12131e]/90 border border-blue-900/30 rounded-2xl p-6 md:p-8 neon-border backdrop-blur-md">
+    <div class="w-full max-w-md bg-[#12131e]/90 border border-blue-900/40 rounded-2xl p-6 md:p-8 neon-border backdrop-blur-md text-center">
         
-        <!-- ヘッダーエリア -->
-        <header class="text-center mb-8 border-b border-blue-950/40 pb-6 relative">
-            <!-- Discordログイン/ユーザー情報ウィジェット（右上の配置用、スマホでは中央上） -->
-            <div id="auth-widget" class="mb-4 flex justify-center">
-                <div id="login-area">
-                    <button id="login-btn" class="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/10">
-                        <i data-lucide="log-in" class="w-4 h-4"></i>Discordでログイン
-                    </button>
-                </div>
-                <div id="user-info" style="display: none;" class="flex items-center gap-3 bg-[#161724] border border-blue-500/30 px-4 py-2 rounded-xl">
-                    <img id="user-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-full border border-blue-400">
-                    <div class="text-left">
-                        <p class="text-xs text-gray-400">ログイン中</p>
-                        <p id="username" class="text-xs font-bold text-blue-300"></p>
-                    </div>
-                    <button id="logout-btn" class="ml-2 text-xs bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 text-red-200 px-2.5 py-1 rounded-lg transition-colors">
-                        ログアウト
-                    </button>
-                </div>
-            </div>
+        <!-- ヘッダー -->
+        <div class="inline-block bg-blue-950/40 border border-blue-500/20 px-4 py-1.5 rounded-full text-xs font-bold text-blue-400 mb-4 tracking-widest uppercase" style="font-family: 'Audiowide', sans-serif;">
+            Music Game Community
+        </div>
+        
+        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent neon-text-blue mb-3">
+            音楽ゲームの集い
+        </h1>
+        
+        <p class="text-gray-400 text-xs md:text-sm mb-8 leading-relaxed">
+            Discordアカウントでログインして、メンバー専用のコンテンツや機能を利用しよう！
+        </p>
 
-            <div class="inline-block bg-blue-950/40 border border-blue-500/20 px-4 py-1.5 rounded-full text-xs font-bold text-blue-400 mb-3 tracking-widest uppercase" style="font-family: 'Audiowide', sans-serif;">
-                Server Channels Directory
-            </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent neon-text-blue mb-3">
-                チャンネルのご紹介
-            </h1>
-            <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                チャンネル数は多いけど、どこで何を話せばいいか迷ったらここを見てみてね！
+        <!-- ログインエリア（未ログイン時） -->
+        <div id="login-area" class="space-y-4">
+            <button id="login-btn" class="w-full inline-flex justify-center items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] active:scale-95 text-white text-sm font-bold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20">
+                <i data-lucide="log-in" class="w-5 h-5"></i>Discordでログイン
+            </button>
+            <p class="text-[11px] text-gray-500">
+                ※認証にはDiscordアカウントの公開情報（ユーザー名・アイコン）を使用します。
             </p>
-        </header>
+        </div>
 
-        <!-- メインコンテンツ -->
-        <main class="space-y-8">
-
-            <!-- 案内文 -->
-            <div class="bg-blue-950/20 border border-blue-900/30 rounded-xl p-4 flex items-start gap-3">
-                <i data-lucide="info" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                <p class="text-xs text-blue-300 leading-relaxed">
-                    Discordアプリ内のチャンネル名や役割に対応しているよ。気になる場所を覗いてみよう！
-                </p>
+        <!-- ユーザー情報エリア（ログイン済み） -->
+        <div id="user-info" style="display: none;" class="space-y-6">
+            <div class="bg-[#161724] border border-blue-500/30 p-4 rounded-xl flex items-center gap-4 text-left">
+                <img id="user-avatar" src="" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-blue-400 shrink-0">
+                <div class="overflow-hidden">
+                    <p class="text-xs text-gray-400">ログイン中のアカウント</p>
+                    <p id="username" class="text-sm font-bold text-blue-300 truncate"></p>
+                </div>
             </div>
 
-            <!-- カテゴリ：スタートガイド -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-purple-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="compass" class="w-5 h-5"></i>
-                    サーバーの基本・スタートガイド
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-purple-500/30 transition-colors">
-                        <span class="inline-block bg-purple-900/30 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#サーバーガイド</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">サーバーでこの3つは覚えといたらいい、もしくはやっといたらいいというものをまとめているよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-purple-500/30 transition-colors">
-                        <span class="inline-block bg-purple-900/30 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#チャンネル＆ロール ＆ #チャンネル一覧</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">チャンネルの表示・非表示が自由に変更できるよ。メンションOKかどうかのロールもここで付与されるよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-purple-500/30 transition-colors">
-                        <span class="inline-block bg-red-900/30 text-red-300 border border-red-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#この広場のルール</span>
-                        <p class="text-xs text-gray-300 leading-relaxed font-bold">サーバーの大切なルール。絶対一回は読んでね！</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-purple-500/30 transition-colors">
-                        <span class="inline-block bg-purple-900/30 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#お知らせ</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">サーバーの更新情報やイベントの開催など、このサーバーに関わるいろいろなお知らせをするよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-purple-500/30 transition-colors md:col-span-2">
-                        <span class="inline-block bg-purple-900/30 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#ロールチャンネル</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">ゲームロールとは違う運営が管理する上で必要なロールが置いてあるよ（現在はメンションOKのみ）。</p>
-                    </div>
-                </div>
-            </section>
+            <button id="logout-btn" class="w-full text-xs bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 text-red-200 py-2.5 rounded-xl transition-colors font-bold">
+                ログアウトする
+            </button>
+        </div>
 
-            <!-- カテゴリ：コミュニケーション -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-blue-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="message-square" class="w-5 h-5"></i>
-                    コミュニケーション
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-blue-500/30 transition-colors">
-                        <span class="inline-block bg-blue-900/30 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#参加情報</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">誰かが参加したら通知が来るよ。スタンプを送信してあいさつしよう！（強制じゃないから気軽にね）</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-blue-500/30 transition-colors">
-                        <span class="inline-block bg-blue-900/30 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#自己紹介</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">自分ってこういう人ですっていうのを見てもらいたい人が書き込む場所だよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-blue-500/30 transition-colors">
-                        <span class="inline-block bg-blue-900/30 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#運営に問い合わせ</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">管理者に意見を伝えたい時や、BOTの不具合とかがあればここで教えてね。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-blue-500/30 transition-colors">
-                        <span class="inline-block bg-blue-900/30 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#招待リンク</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">招待リンクは自分で生成しないで、ここにある公式リンクをコピーして送ってね（便利なテンプレート文章もあるよ）。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- カテゴリ：フリーチャット -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-green-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="smile" class="w-5 h-5"></i>
-                    フリーチャット
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-green-500/30 transition-colors">
-                        <span class="inline-block bg-green-900/30 text-green-300 border border-green-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#雑談</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">飯テロやこんにちはをする場所。常識の範囲内＋サーバールールを守ればどんな話でもOK！（ただし身内ネタやR18な話はやめてね。最悪タイムアウトになっちゃうよ）</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-green-500/30 transition-colors">
-                        <span class="inline-block bg-green-900/30 text-green-300 border border-green-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#東方の館</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">東方Projectに関連する話やコンテンツの共有はここでしてね。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-green-500/30 transition-colors md:col-span-2">
-                        <span class="inline-block bg-green-900/30 text-green-300 border border-green-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">🔊 一般雑談</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">声で話せる雑談用のボイスチャットだよ。上の雑談テキストチャンネルと同じルールで使ってね。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- カテゴリ：音楽の広場 -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-cyan-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="music" class="w-5 h-5"></i>
-                    音楽の広場
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-cyan-500/30 transition-colors">
-                        <span class="inline-block bg-cyan-900/30 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#音楽質問など</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">音楽について質問や相談、アドバイスが欲しいときはこのスレッドを活用してね。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-cyan-500/30 transition-colors">
-                        <span class="inline-block bg-cyan-900/30 text-cyan-300 border border-cyan-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#音楽の話</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">お気に入りの曲の紹介や音ゲーの曲など、音楽にまつわる雑談をする場所だよ。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- カテゴリ：ゲームの広場・課題曲 -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-yellow-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="gamepad-2" class="w-5 h-5"></i>
-                    ゲームの広場 ＆ 課題曲
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-yellow-900/30 text-yellow-300 border border-yellow-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#ゲームロールの選択</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">遊んでいるゲームのロール（役割）を自分に付与して、チャンネルを表示させることができるよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-yellow-900/30 text-yellow-300 border border-yellow-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#ゲーム雑談</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">ゲームに関する全般的なトークや、情報交換、質問ができるチャットだよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-yellow-900/30 text-yellow-300 border border-yellow-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#ゲームの話</span>
-                        <p class="text-xs text-gray-300 leading-relaxed font-bold">自慢のハイスコアや、リザルトなどのゲームリザルト共有はここでやっているよ！</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-emerald-900/30 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#マイクラアナウンス</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">運営しているマイクラサーバーへの参加アドレスなどをここで掲示しているよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-emerald-900/30 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#minecraft</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">マイクラサーバーに関わるマルチプレイの雑談やチャットをする場所だよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-yellow-500/30 transition-colors">
-                        <span class="inline-block bg-orange-900/30 text-orange-300 border border-orange-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">#maimai ＆ #太鼓の達人</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">それぞれのゲームに向けた定期的な課題曲の発表と共有を行う部屋だよ。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- カテゴリ：ボイスチャット -->
-            <section class="space-y-4">
-                <h2 class="text-lg font-bold text-pink-400 flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <i data-lucide="mic" class="w-5 h-5"></i>
-                    ボイスチャット (VC) 特設
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-pink-500/30 transition-colors md:col-span-2">
-                        <span class="inline-block bg-pink-900/30 text-pink-300 border border-pink-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">🔊 メンバー利用可能ステージ（音ゲー配信用）</span>
-                        <p class="text-xs text-gray-300 leading-relaxed mb-3">誰でも「#運営に問い合わせ」で申請を出すことで使えるライブ配信用ステージだよ。</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://discord.com/channels/1464287416561958966/1468520713379119198/1475814112742346880" target="_blank" class="inline-flex items-center gap-1.5 text-[10px] bg-purple-900/40 hover:bg-purple-900/60 border border-purple-500/30 px-2.5 py-1 rounded-lg text-purple-200 transition-colors">
-                                <i data-lucide="send" class="w-3 h-3"></i>「#運営に問い合わせ」で申請
-                            </a>
-                            <a href="https://discord.com/channels/1464287416561958966/1464293422083997898/1509095096770101359" target="_blank" class="inline-flex items-center gap-1.5 text-[10px] bg-blue-900/40 hover:bg-blue-900/60 border border-blue-500/30 px-2.5 py-1 rounded-lg text-blue-200 transition-colors">
-                                <i data-lucide="info" class="w-3 h-3"></i>「#お知らせ」の解説を見る
-                            </a>
-                        </div>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-pink-500/30 transition-colors">
-                        <span class="inline-block bg-pink-900/30 text-pink-300 border border-pink-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">🔊 #VC 1 ～ #VC 5</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">誰でも自由に入れる標準的なボイスチャンネルだよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-pink-500/30 transition-colors">
-                        <span class="inline-block bg-pink-900/30 text-pink-300 border border-pink-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">🔊 #スプラトゥーン用VC 1 ～ 2</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">4人で遊ぶ各種スプラトゥーンマルチ用の通話部屋だよ。</p>
-                    </div>
-                    <div class="bg-[#161724]/60 border border-gray-800 p-4 rounded-xl hover:border-pink-500/30 transition-colors md:col-span-2">
-                        <span class="inline-block bg-pink-900/30 text-pink-300 border border-pink-500/20 px-2 py-0.5 rounded text-xs font-mono mb-2">🔊 #スプラトゥーン用VC 3 ～ 4</span>
-                        <p class="text-xs text-gray-300 leading-relaxed">4人×2チーム＋観戦2人の最大10人入れる、プライベートマッチ専用のVC部屋だよ。</p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- フッター / 参加へのアクション -->
-        <footer class="mt-8 pt-6 border-t border-gray-800/80 text-center">
-            <div class="bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-pink-900/20 border border-purple-500/20 rounded-2xl p-6 mb-6">
-                <h4 class="text-base font-bold text-purple-300 mb-2">まだサーバーに入っていない方へ</h4>
-                <p class="text-xs text-gray-400 mb-4 max-w-md mx-auto">
-                    Discordに参加して、仲間たちと一緒にハイスコアを競い合い、ゲーム仲間をたくさん作ろう！
-                </p>
-                <!-- 招待用リンク -->
-                <a href="https://discord.gg/qgqV4pn9A6" target="_blank" class="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] active:scale-95 text-white text-sm font-bold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20">
-                    <i data-lucide="message-square-plus" class="w-4 h-4"></i>Discordに参加してプレイする！
-                </a>
-            </div>
-            
-            <div class="text-[10px] text-gray-600 flex flex-col sm:flex-row justify-between items-center gap-2">
-                <span>サーバー設立日：2026年1月24日</span>
-                <span>© 音楽ゲームの集い All Rights Reserved.</span>
-            </div>
-        </footer>
+        <!-- フッター -->
+        <div class="mt-8 pt-4 border-t border-gray-800/80 text-[10px] text-gray-600">
+            © 音楽ゲームの集い All Rights Reserved.
+        </div>
 
     </div>
 
     <!-- JavaScript 制御 -->
     <script>
-        // DiscordのClient IDを設定（あとでDiscord Developer Portalで作ったIDに書き換えてね）
+        // DiscordのClient IDを設定してね
         const CLIENT_ID = 'ここにDiscordのClient IDを入れる';
 
         window.addEventListener('load', () => {
@@ -326,7 +131,7 @@
                     }
                     
                     loginArea.style.display = 'none';
-                    userInfo.style.display = 'flex';
+                    userInfo.style.display = 'block';
 
                 } catch (error) {
                     console.error(error);

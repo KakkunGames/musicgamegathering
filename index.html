@@ -1,150 +1,80 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音楽ゲームの集い - ログイン</title>
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons (CDN) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Sans+JP:wght@400;500;700&display=swap');
-        
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #0b0c10;
-            color: #e2e8f0;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音楽ゲームの集い - ログイン</title>
+  <!-- ファビコン設定（必要に応じてファイル名を合わせてな） -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: '#00f3ff',
+          }
         }
-        .neon-text-blue {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-        .neon-border {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-        }
-    </style>
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="p-4 min-h-screen flex justify-center items-center">
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
 
-    <div class="w-full max-w-md bg-[#12131e]/90 border border-blue-900/40 rounded-2xl p-6 md:p-8 neon-border backdrop-blur-md text-center">
-        
-        <!-- ヘッダー -->
-        <div class="inline-block bg-blue-950/40 border border-blue-500/20 px-4 py-1.5 rounded-full text-xs font-bold text-blue-400 mb-4 tracking-widest uppercase" style="font-family: 'Audiowide', sans-serif;">
-            Music Game Community
-        </div>
-        
-        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent neon-text-blue mb-3">
-            音楽ゲームの集い
-        </h1>
-        
-        <p class="text-gray-400 text-xs md:text-sm mb-8 leading-relaxed">
-            Discordアカウントでログインして、メンバー専用のコンテンツや機能を利用しよう！
-        </p>
-
-        <!-- ログインエリア（未ログイン時） -->
-        <div id="login-area" class="space-y-4">
-            <button id="login-btn" class="w-full inline-flex justify-center items-center gap-2 bg-[#5865F2] hover:bg-[#4752c4] active:scale-95 text-white text-sm font-bold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/20">
-                <i data-lucide="log-in" class="w-5 h-5"></i>Discordでログイン
-            </button>
-            <p class="text-[11px] text-gray-500">
-                ※認証にはDiscordアカウントの公開情報（ユーザー名・アイコン）を使用します。
-            </p>
-        </div>
-
-        <!-- ユーザー情報エリア（ログイン済み） -->
-        <div id="user-info" style="display: none;" class="space-y-6">
-            <div class="bg-[#161724] border border-blue-500/30 p-4 rounded-xl flex items-center gap-4 text-left">
-                <img id="user-avatar" src="" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-blue-400 shrink-0">
-                <div class="overflow-hidden">
-                    <p class="text-xs text-gray-400">ログイン中のアカウント</p>
-                    <p id="username" class="text-sm font-bold text-blue-300 truncate"></p>
-                </div>
-            </div>
-
-            <button id="logout-btn" class="w-full text-xs bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 text-red-200 py-2.5 rounded-xl transition-colors font-bold">
-                ログアウトする
-            </button>
-        </div>
-
-        <!-- フッター -->
-        <div class="mt-8 pt-4 border-t border-gray-800/80 text-[10px] text-gray-600">
-            © 音楽ゲームの集い All Rights Reserved.
-        </div>
-
+  <div class="max-w-md w-full mx-4 bg-slate-800/60 border border-slate-700/80 rounded-2xl p-8 shadow-2xl backdrop-blur text-center space-y-6">
+    <div class="flex justify-center">
+      <div class="p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20">
+        <i data-lucide="music" class="w-10 h-10 text-cyan-400"></i>
+      </div>
     </div>
 
-    <!-- JavaScript 制御 -->
-    <script>
-        // DiscordのClient IDを設定してね
-        const CLIENT_ID = '1558444806726746153';
+    <div class="space-y-2">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">音楽ゲームの集い</h1>
+      <p class="text-sm text-slate-400">コミュニティポータルへようこそ。<br>利用するにはDiscordでログインしてください。</p>
+    </div>
 
-        window.addEventListener('load', () => {
-            lucide.createIcons();
-        });
+    <button onclick="loginWithDiscord()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-6 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/20">
+      <i data-lucide="log-in" class="w-5 h-5"></i>
+      <span>Discordでログイン</span>
+    </button>
+  </div>
 
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const loginArea = document.getElementById('login-area');
-        const userInfo = document.getElementById('user-info');
-        const usernameElem = document.getElementById('username');
-        const userAvatar = document.getElementById('user-avatar');
+  <script>
+    const CLIENT_ID = '1558444806726746153';
+    const REDIRECT_URI = 'https://musicgamegathering.pages.dev/';
 
-        // ログインボタンを押したときの処理
-        loginBtn.addEventListener('click', () => {
-            const redirectUri = window.location.origin + window.location.pathname;
-            const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=identify`;
-            window.location.href = discordAuthUrl;
-        });
+    window.onload = () => {
+      lucide.createIcons();
+      handleAuthRedirect();
+    };
 
-        // ページ読み込み時にURLのアクセストークンをキャッチする処理
-        window.addEventListener('DOMContentLoaded', async () => {
-            const fragment = new URLSearchParams(window.location.hash.slice(1));
-            const accessToken = fragment.get('access_token');
+    function loginWithDiscord() {
+      const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+      window.location.href = url;
+    }
 
-            if (accessToken) {
-                localStorage.setItem('discord_token', accessToken);
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
+    function handleAuthRedirect() {
+      const hash = window.location.hash;
+      const token = localStorage.getItem('discord_token');
 
-            const token = localStorage.getItem('discord_token');
+      // すでにトークンがある場合は直接ダッシュボードへ
+      if (token) {
+        window.location.href = 'dashboard.html';
+        return;
+      }
 
-            if (token) {
-                try {
-                    const response = await fetch('https://discord.com/api/users/@me', {
-                        headers: {
-                            authorization: `Bearer ${token}`
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('トークンが無効');
-                    }
-
-                    const data = await response.json();
-                    
-                    // ユーザー情報を反映
-                    usernameElem.textContent = `${data.username} さん`;
-                    if (data.avatar) {
-                        userAvatar.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`;
-                    } else {
-                        userAvatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
-                    }
-                    
-                    loginArea.style.display = 'none';
-                    userInfo.style.display = 'block';
-
-                } catch (error) {
-                    console.error(error);
-                    localStorage.removeItem('discord_token');
-                }
-            }
-        });
-
-        // ログアウト処理
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('discord_token');
-            window.location.reload();
-        });
-    </script>
+      // ログイン直後でハッシュにアクセストークンが含まれている場合
+      if (hash.includes('access_token')) {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get('access_token');
+        if (accessToken) {
+          localStorage.setItem('discord_token', accessToken);
+          window.location.href = 'dashboard.html';
+        }
+      }
+    }
+  </script>
 </body>
 </html>

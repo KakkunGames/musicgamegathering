@@ -45,13 +45,28 @@
 
   <footer class="w-full px-4 py-5 text-center text-xs text-slate-500">
     <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
-      <span>© 音楽ゲームの集い・かっくん</span>
+      <span><button id="secret-trigger" type="button" aria-label="著作権記号" class="cursor-default text-inherit focus:outline-none">©</button> 音楽ゲームの集い・かっくん</span>
       <span aria-hidden="true" class="text-slate-700">|</span>
       <a href="https://github.com/KakkunGames/musicgamegathering" target="_blank" rel="noopener noreferrer" class="text-cyan-400/80 hover:text-cyan-300 transition-colors underline underline-offset-4">GitHub</a>
     </div>
   </footer>
 
   <script>
+    // © を5回タップすると秘密ページへの入口を開く（入口の認証・本体は別途実装）
+    let secretTapCount = 0;
+    let secretTapTimer = null;
+
+    document.getElementById('secret-trigger').addEventListener('click', () => {
+      secretTapCount++;
+      clearTimeout(secretTapTimer);
+      if (secretTapCount >= 5) {
+        secretTapCount = 0;
+        alert('ACCESS GRANTED\\n秘密の入口を発見！\\nページ本体と認証機能はこれから接続するで。');
+        return;
+      }
+      secretTapTimer = setTimeout(() => { secretTapCount = 0; }, 2500);
+    });
+
     const CLIENT_ID = '1558444806726746153';
     const REDIRECT_URI = 'https://musicgamegathering.pages.dev/';
 

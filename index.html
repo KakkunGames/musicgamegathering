@@ -21,25 +21,35 @@
   </script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-900 text-white min-h-screen flex flex-col transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
 
-  <div class="max-w-md w-full mx-4 bg-slate-800/60 border border-slate-700/80 rounded-2xl p-8 shadow-2xl backdrop-blur text-center space-y-6">
-    <div class="flex justify-center">
-      <div class="p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20">
-        <i data-lucide="music" class="w-10 h-10 text-cyan-400"></i>
+  <main class="flex-1 w-full flex items-center justify-center">
+    <div class="max-w-md w-full mx-4 bg-slate-800/60 border border-slate-700/80 rounded-2xl p-8 shadow-2xl backdrop-blur text-center space-y-6">
+      <div class="flex justify-center">
+        <div class="p-3 bg-cyan-500/10 rounded-2xl border border-cyan-500/20">
+          <i data-lucide="music" class="w-10 h-10 text-cyan-400"></i>
+        </div>
       </div>
-    </div>
 
-    <div class="space-y-2">
-      <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">音楽ゲームの集い</h1>
-      <p class="text-sm text-slate-400">コミュニティポータルへようこそ。<br>利用するにはDiscordでログインしてください。</p>
-    </div>
+      <div class="space-y-2">
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">音楽ゲームの集い</h1>
+        <p class="text-sm text-slate-400">コミュニティポータルへようこそ。<br>利用するにはDiscordでログインしてください。</p>
+      </div>
 
-    <button onclick="loginWithDiscord()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-6 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/20">
-      <i data-lucide="log-in" class="w-5 h-5"></i>
-      <span>Discordでログイン</span>
-    </button>
-  </div>
+      <button onclick="loginWithDiscord()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-6 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/20">
+        <i data-lucide="log-in" class="w-5 h-5"></i>
+        <span>Discordでログイン</span>
+      </button>
+    </div>
+  </main>
+
+  <footer class="w-full px-4 py-5 text-center text-xs text-slate-500">
+    <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+      <span>© 音楽ゲームの集い・かっくん</span>
+      <span aria-hidden="true" class="text-slate-700">|</span>
+      <a href="https://github.com/KakkunGames/musicgamegathering" target="_blank" rel="noopener noreferrer" class="text-cyan-400/80 hover:text-cyan-300 transition-colors underline underline-offset-4">GitHub</a>
+    </div>
+  </footer>
 
   <script>
     const CLIENT_ID = '1558444806726746153';

@@ -52,7 +52,7 @@
   </footer>
 
   <script>
-    // © を5回タップすると秘密ページへの入口を開く（入口の認証・本体は別途実装）
+    // © を5回タップすると、画像送信不可のゲストダッシュボードへ移動する
     let secretTapCount = 0;
     let secretTapTimer = null;
 
@@ -61,7 +61,7 @@
       clearTimeout(secretTapTimer);
       if (secretTapCount >= 5) {
         secretTapCount = 0;
-        alert('ACCESS GRANTED\\n秘密の入口を発見！\\nページ本体と認証機能はこれから接続するで。');
+        window.location.href = 'guest-dashboard.html';
         return;
       }
       secretTapTimer = setTimeout(() => { secretTapCount = 0; }, 2500);

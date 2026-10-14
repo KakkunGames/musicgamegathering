@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ゲストダッシュボード - 音楽ゲームの集い</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { neon: '#00f3ff' } } }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+  <header class="border-b border-slate-800 bg-slate-900/80 px-5 py-4">
+    <div class="max-w-4xl mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <i data-lucide="music" class="w-7 h-7 text-cyan-400"></i>
+        <h1 class="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">音楽ゲームの集い</h1>
+      </div>
+      <span class="text-xs font-semibold text-amber-300 border border-amber-400/30 bg-amber-400/10 rounded-full px-3 py-1">GUEST</span>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-5 py-8 sm:py-10 space-y-8">
+    <section class="space-y-2">
+      <h2 class="text-2xl font-bold">ゲストダッシュボード</h2>
+      <p class="text-sm text-slate-400">ゲストモードで閲覧中。管理者機能は利用できません。</p>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-lg font-bold">ゲーム選択</h3>
+      <p class="text-sm text-slate-400">現在の対応状況を確認できます。</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-slate-800 border border-cyan-500/50 p-5 rounded-2xl flex items-center justify-between gap-3">
+          <div>
+            <h4 class="font-bold text-cyan-400">太鼓の達人</h4>
+            <p class="text-xs text-slate-400 mt-1">点数送信機能はゲスト利用不可</p>
+          </div>
+          <i data-lucide="music-2" class="w-6 h-6 text-cyan-400"></i>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 p-5 rounded-2xl opacity-70 flex items-center justify-between gap-3">
+          <div>
+            <h4 class="font-bold text-slate-400">CHUNITHM</h4>
+            <p class="text-xs text-slate-500 mt-1">現在利用できません</p>
+          </div>
+          <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 p-5 rounded-2xl opacity-70 flex items-center justify-between gap-3">
+          <div>
+            <h4 class="font-bold text-slate-400">オンゲキ</h4>
+            <p class="text-xs text-slate-500 mt-1">現在利用できません</p>
+          </div>
+          <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+        </div>
+        <div class="bg-slate-800/50 border border-slate-700 p-5 rounded-2xl opacity-70 flex items-center justify-between gap-3">
+          <div>
+            <h4 class="font-bold text-slate-400">maimai</h4>
+            <p class="text-xs text-slate-500 mt-1">現在利用できません</p>
+          </div>
+          <i data-lucide="lock" class="w-6 h-6 text-slate-600"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 space-y-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="image-off" class="w-5 h-5 text-amber-300"></i>
+        <h3 class="text-lg font-bold">スコア写真の送信</h3>
+      </div>
+      <p class="text-sm text-slate-300">ゲストモードでは画像の送信はできません。</p>
+      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 text-sm text-slate-500 flex items-center gap-3">
+        <i data-lucide="lock-keyhole" class="w-5 h-5 shrink-0"></i>
+        <span>Discordログイン後の機能です</span>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="./" class="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> ログインページへ戻る
+      </a>
+    </div>
+  </main>
+
+  <footer class="w-full px-4 py-5 text-center text-xs text-slate-500 border-t border-slate-800">
+    <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+      <span>© 音楽ゲームの集い・かっくん</span>
+      <span aria-hidden="true" class="text-slate-700">|</span>
+      <a href="https://github.com/KakkunGames/musicgamegathering" target="_blank" rel="noopener noreferrer" class="text-cyan-400/80 hover:text-cyan-300 transition-colors underline underline-offset-4">GitHub</a>
+    </div>
+  </footer>
+  <script>window.onload = () => lucide.createIcons();</script>
+</body>
+</html>
